@@ -7,27 +7,24 @@ from datetime import datetime, UTC, timedelta
 from dotenv import load_dotenv
 from pathlib import Path
 
-# Load environment variables
+# Try to load from .env file, silently continue if file not found
 env_path = Path('.env')
-if not env_path.exists():
-    raise Exception(".env file not found! Please create it with your Twitter credentials.")
-
-load_dotenv(env_path)
+if env_path.exists():
+    print("Loading environment from .env file")
+    load_dotenv(env_path)
+else:
+    print("No .env file found, using system environment variables")
 
 # Verify Twitter API credentials are loaded
-TWITTER_API_KEY = os.getenv('TWITTER_API_KEY')
-TWITTER_API_SECRET = os.getenv('TWITTER_API_SECRET')
-TWITTER_ACCESS_TOKEN = os.getenv('TWITTER_ACCESS_TOKEN')
-TWITTER_ACCESS_TOKEN_SECRET = os.getenv('TWITTER_ACCESS_TOKEN_SECRET')
+TWITTER_API_KEY = os.environ.get('TWITTER_API_KEY')
+TWITTER_API_SECRET = os.environ.get('TWITTER_API_SECRET')
+TWITTER_ACCESS_TOKEN = os.environ.get('TWITTER_ACCESS_TOKEN')
+TWITTER_ACCESS_TOKEN_SECRET = os.environ.get('TWITTER_ACCESS_TOKEN_SECRET')
+GRAFANA_TOKEN = os.environ.get('GRAFANA_TOKEN')
 
-# Get Grafana token
-GRAFANA_TOKEN = os.getenv('GRAFANA_TOKEN')
-
-if not all([TWITTER_API_KEY, TWITTER_API_SECRET, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET]):
-    raise Exception("Missing Twitter API credentials in .env file!")
-
-if not GRAFANA_TOKEN:
-    raise Exception("Missing Grafana token in .env file!")
+# Verify all required credentials are available
+if not all([TWITTER_API_KEY, TWITTER_API_SECRET, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET, GRAFANA_TOKEN]):
+    raise Exception("Missing required environment variables. Please ensure all credentials are set either in .env file or system environment.")
 
 print("Environment variables loaded successfully!")
 
