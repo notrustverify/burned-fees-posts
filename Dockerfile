@@ -12,4 +12,7 @@ COPY twitter_bot.py .
 # Create directory for the image
 RUN mkdir -p /app/data
 
-CMD ["python", "twitter_bot.py"] 
+# Disable Python output buffering
+ENV PYTHONUNBUFFERED=1
+
+CMD ["python", "-u", "twitter_bot.py"] 
