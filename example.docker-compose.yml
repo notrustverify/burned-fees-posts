@@ -1,0 +1,13 @@
+services:
+  twitter-bot:
+    build: .
+    container_name: alph-twitter-bot
+    environment:
+      - TWITTER_API_KEY=${TWITTER_API_KEY}
+      - TWITTER_API_SECRET=${TWITTER_API_SECRET}
+      - TWITTER_ACCESS_TOKEN=${TWITTER_ACCESS_TOKEN}
+      - TWITTER_ACCESS_TOKEN_SECRET=${TWITTER_ACCESS_TOKEN_SECRET}
+      - GRAFANA_TOKEN=${GRAFANA_TOKEN}
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped 
