@@ -124,8 +124,8 @@ def main():
     logging.info("Scheduled daily post for 00:01 UTC")
     
     # Run the first post immediately
-    logging.info("Running initial post...")
-    post_to_twitter()
+    # logging.info("Running initial post...")
+    # post_to_twitter()
     
     # Keep the script running
     logging.info("Bot is now running. Waiting for scheduled tasks...")
